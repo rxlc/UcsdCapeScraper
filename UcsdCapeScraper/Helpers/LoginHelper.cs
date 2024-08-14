@@ -38,6 +38,11 @@ namespace UcsdCapeScraper.Helpers
 				ConsoleHelper.WriteLine(LogType.Info, "Please authenticate this session with Duo 2FA. You have one " +
 				                                      "minute.");
 				var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+
+				wait.Until(x => x.FindElements(By.Id("trust-browser-button")).Count > 0);
+				
+				driver.FindElement(By.Id("trust-browser-button")).Click();
+
 				wait.Until(x => x.Url.Contains("responses"));
 			}
 			catch (Exception)
